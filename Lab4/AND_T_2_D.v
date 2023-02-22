@@ -28,7 +28,7 @@ module AND_T_2_D(out, in1, in2, in3);
 input in1, in2, in3;
 output out;
 
-and		#`D		and1D(out, in1, in2, in3);
+and		#`D		and1(out, in1, in2, in3);
 
 
 endmodule
