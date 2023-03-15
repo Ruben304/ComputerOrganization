@@ -29,6 +29,6 @@ module NBit_NOR #(parameter N = 32)(in1_val, in2_val, out_val);
     wire [N-1:0] o_out; 
     
     NBit_OR #(.N(N)) or1(.out_val(o_out), .in1_val(in1_val), .in2_val(in2_val));
-    NBit_NOT #(.N(N)) not1(.out_val(out_val), .in_val(o_out));
+    NBit_NOT #(.N(N)) not1(.out(out_val), .in(o_out));
 
 endmodule
