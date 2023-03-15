@@ -34,7 +34,7 @@ module ALU_tb;
     wire c_out;
 
 //Instantiate unit under test
-    ALU #(n)     ALU(.out1_val(R0[n-1:0]), 
+	ALU #(.N(n))     ALU(.out1_val(R0[n-1:0]), 
 		     .in1_val(R2[n-1:0]), 
 		     .in2_val(R3[n-1:0]), 
 		     .mux_in(ALUOp[2:0]), 
