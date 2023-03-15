@@ -29,20 +29,18 @@ module ALU_tb;
 
 //Outputs
     wire [n-1:0] R0;
-	wire [n-1:0] R1;
     wire error_flag;
     wire [n-1:0] out_verify;
     wire c_out;
 
 //Instantiate unit under test
     ALU #(n)     ALU(.out1_val(R0[n-1:0]), 
-					.out2_val(R1[n-1:0]), 
-					.in1_val(R2[n-1:0]), 
-					.in2_val(R3[n-1:0]), 
-					.mux_in(ALUOp[2:0]), 
-					.c_in(c_in), 
-					.c_out(c_out), 
-					.clk(clk));
+		     .in1_val(R2[n-1:0]), 
+		     .in2_val(R3[n-1:0]), 
+		     .mux_in(ALUOp[2:0]), 
+		     .c_in(c_in), 
+		     .c_out(c_out), 
+		     .clk(clk));
 
 //Assign error_flag
     assign error_flag = (c_out != c_out_verify || (R0 != out_verify);
