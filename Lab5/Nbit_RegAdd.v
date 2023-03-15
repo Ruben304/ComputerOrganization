@@ -1,5 +1,5 @@
 module Nbit_RegAdd(c_in, c_out,sum,a,b,clk, select);
-parameter n=8;
+parameter n=32;
 input [n-1:0] a;
 input [n-1:0] b;
 input c_in;
