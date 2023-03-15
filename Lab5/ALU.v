@@ -20,13 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, clk);
-
 	input [N-1:0] in1_val, in2_val;
 	input [2:0] mux_in;
 	input c_in, clk;
-	output reg [N-1:0] out1_val;
+	output [N-1:0] out1_val;
 	output c_out;
 	
+	reg [N-1:0] out;
 
 	wire [N-1:0] mov_out;
 	wire [N-1:0] not_out;
@@ -36,7 +36,7 @@ module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, 
 	wire [N-1:0] nand_out;
 	wire [N-1:0] and_out;
 	wire [N-1:0] slt_out;
-	
+
 	wire [N-1:0] output1;
 	wire c_out_add, c_out_sub, c_out_slt;
 	reg c_out_output;
@@ -44,7 +44,7 @@ module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, 
 	
 		Nbit_NOT #(.N(N)) notALU (.out(not_out[N-1:0]), .in(in1_val[N-1:0]));
 		
-		NBit_adder #(.N(N)) adderALU (.c_out(c_out_add), .sum(add_out[N-1:0]), .a(in1_val[N-1:0]), .b(in2_val[N-1:0]), .c_in(c_in));
+		Nbit_adder #(.N(N)) adderALU (.c_out(c_out_add), .sum(add_out[N-1:0]), .a(in1_val[N-1:0]), .b(in2_val[N-1:0]), .c_in(c_in));
 		
 		NBit_NOR #(.N(N)) norALU (.out_val(nor_out[N-1:0]), .in1_val(in1_val[N-1:0]), .in2_val(in2_val[N-1:0]));
 		
@@ -59,31 +59,32 @@ module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, 
 		always @(*) begin
 			case(mux_in)
 				3'b000: // mov
-			         out1_val[N-1:0] = mov_out[N-1:0];
+			         out[N-1:0] = mov_out[N-1:0];
 				3'b001:	// not
-				    out1_val[N-1:0] = not_out[N-1:0];
+				    out[N-1:0] = not_out[N-1:0];
 				3'b010: // add
 				    begin
-				        out1_val[N-1:0] = add_out[N-1:0];
+				        out[N-1:0] = add_out[N-1:0];
 				        c_out_output = c_out_add;
 				    end    
 				3'b011: // nor
-				    out1_val[N-1:0] = nor_out[N-1:0];
+				    out[N-1:0] = nor_out[N-1:0];
 				3'b100: // sub
 				    begin
-				        out1_val[N-1:0] = sub_out[N-1:0];
+				        out[N-1:0] = sub_out[N-1:0];
 				        c_out_output = c_out_sub;
 				    end
 				3'b101: // nand
-				    out1_val[N-1:0] = nand_out[N-1:0]; 
+				    out[N-1:0] = nand_out[N-1:0]; 
 				3'b110: // and
-				    out1_val[N-1:0] = and_out[N-1:0];
+				    out[N-1:0] = and_out[N-1:0];
 				3'b111: // slt
 				    c_out_output = c_out_slt;
 		    endcase
         end		
 
     assign c_out = c_out_output;
+    assign out1_val = out;
 
     NBit_Register #(.N(N)) regALU (.out0(out1_val[N-1:0]), .in0(output1[N-1:0]), .clk(clk));
 
