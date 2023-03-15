@@ -28,6 +28,7 @@ module Nbit_Sub #(parameter N = 32)(a, b, c_in, sum, c_out);
     output [N-1:0] sum;
     genvar i;
     
+    
     wire [N-1:0] inv_b;
     wire [N:0] carry;
     
