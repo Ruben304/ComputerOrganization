@@ -19,15 +19,21 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+module Nbit_NOT(
+out,
+in
+    );
+parameter n=32;
+input[n-1:0] in;
+output [n-1:0] out;
+genvar i;
 
-module Nbit_NOT#(parameter N = 32)(in_val, out_val);
-    input in_val;
-    output out_val;
-    genvar i;
+
+generate 
+for(i=0;i<n;i=i+1)begin
+not(out[i],in[i]);
+end 
+endgenerate 
     
-    generate
-        for (i = 0; i < N; i = i+ 1) begin 
-            not n_gate(out_val[i], in_val[i]);
-        end 
-    endgenerate
 endmodule
+
