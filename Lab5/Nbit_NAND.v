@@ -28,6 +28,6 @@ module Nbit_NAND#(parameter N = 32)(in1_val, in2_val, out_val);
     wire [N-1:0] a_out;
     
     Nbit_AND #(.N(N)) and1(.out_val(a_out), .in1_val(in1_val), .in2_val(in2_val));
-    Nbit_NOT #(.N(N)) not1(.out_val(out_val), .in_val(a_out));
+    Nbit_NOT #(.N(N)) not1(.out(out_val), .in(a_out));
      
 endmodule
