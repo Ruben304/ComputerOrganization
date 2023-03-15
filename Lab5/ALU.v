@@ -19,13 +19,15 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, out2_val, c_out);
+module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, out2_val, clk);
 
 	input [N-1:0] in1_val, in2_val;
 	input [2:0] mux_in;
-	input c_in;
-	output [N-1:0] out1_val, out2_val;
+	input c_in, clk;
+	output [N-1:0] out1_val;
 	output c_out;
+	output reg [N-1:0] out2_val;
+	
 	
 	wire [N-1:0] mov_out;
 	wire [N-1:0] not_out;
@@ -37,7 +39,8 @@ module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, out2_va
 	wire [N-1:0] slt_out;
 	
 	wire [N-1:0] output1;
-	wire c_out_output, c_out_add, c_out_sub, c_out_slt;
+	wire c_out_add, c_out_sub, c_out_slt;
+	reg c_out_output;
 	
 	
 		Nbit_NOT #(.N(N)) notALU (.out(not_out[N-1:0]), .in(in1_val[N-1:0]));
@@ -56,9 +59,34 @@ module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, out2_va
 		
 		always @(*) begin
 			case(mux_in)
-				3'b000: 
-			
-				3'b001:	
+				3'b000: // mov
+			         out2_val[N-1:0] = mov_out[N-1:0];
+				3'b001:	// not
+				    out2_val[N-1:0] = not_out[N-1:0];
+				3'b010: // add
+				    begin
+				        out2_val[N-1:0] = add_out[N-1:0];
+				        c_out_output = c_out_add;
+				    end    
+				3'b011: // nor
+				    out2_val[N-1:0] = nor_out[N-1:0];
+				3'b100: // sub
+				    begin
+				        out2_val[N-1:0] = sub_out[N-1:0];
+				        c_out_output = c_out_sub;
+				    end
+				3'b101: // nand
+				    out2_val[N-1:0] = nand_out[N-1:0]; 
+				3'b110: // and
+				    out2_val[N-1:0] = and_out[N-1:0];
+				3'b111: // slt
+				    c_out_output = c_out_slt;
+		    endcase
         end		
+
+    NBit_Register #(.N(N)) regALU (.out0(out1_val[N-1:0]), .in0(out2_val[N-1:0]), .clk(clk));
+
+    dff dffALU (.q(c_out), .d(c_out), .clk(clk));
+
 
 endmodule
