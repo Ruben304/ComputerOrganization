@@ -24,7 +24,7 @@ module NBit_Register_tb(
 
     );
     
-    parameter n=16;
+    parameter n=32;
     reg [n-1:0]d;
     reg clk;
     
