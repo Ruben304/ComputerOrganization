@@ -34,8 +34,7 @@ module Nbit_Sub #(parameter N = 32)(a, b, c_in, sum, c_out);
     assign carry[0] = c_in;
     assign c_out = carry[N];
     
-    Nbit_NOT #(.N(N)) not1(.out_val(inv_b), .in_val(b));
-    
+    Nbit_NOT #(.N(N)) not1(.out(inv_b), .in(b));
     generate 
         for(i = 0; i < N; i = i + 1) begin 
             FA_str FA1 (.c_out(carry[i+1]), .sum(sum[i]), .a(a[i]), .b(inv_b[i]), .c_in(carry[i]));
