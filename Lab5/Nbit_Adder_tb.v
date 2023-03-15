@@ -19,9 +19,11 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+module Nbit_Adder_tb(
 
-module Nbit_Adder_tb();
-parameter n=4;
+    );
+    
+    parameter n=32;
     reg [n-1:0] in1;
     reg [n-1:0] in2;
     reg c_in;
@@ -29,7 +31,7 @@ parameter n=4;
     wire [n-1:0] out;
     wire   c_out;
     
-    Nbit_Adder #(n) adderTest( .a(in1),
+    Nbit_adder #(n) adderTest( .a(in1),
     .b(in2),
     .sum(out),
     .c_in(c_in),
@@ -41,7 +43,7 @@ parameter n=4;
     in2=0;
     c_in=0;
     
-    #200;
+    #100;
     end
     
     always 
