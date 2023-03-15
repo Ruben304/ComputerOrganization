@@ -19,7 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module NBit_Register(out0,in0,clk);
     
     parameter n=32;
@@ -31,8 +30,8 @@ module NBit_Register(out0,in0,clk);
     
     generate 
     for(i=0;i<n;i=i+1) begin: registerblk 
-        dff Dflipflop(out0[i],in0[i],clk);
+    dff Dflipflop(out0[i],in0[i],clk);
     end
-    endgenerate   
+    endgenerate  
     
 endmodule
