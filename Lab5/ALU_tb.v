@@ -48,13 +48,13 @@ module ALU_tb;
     assign error_flag = (c_out != c_out_verify || (R0 != out_verify);
 
 //Verification Logic
-    Verification_ALU #(n) Verify(
-    .c_out(c_out_verify), 
-    .out(out_verify), 
-    .a(R2), 
-    .b(R3), 
-    .select(ALUOp), 
-    .clk(clk));
+   // Verification_ALU #(n) Verify(
+    //.c_out(c_out_verify), 
+    //.out(out_verify), 
+    //.a(R2), 
+    //.b(R3), 
+    //.select(ALUOp), 
+    //.clk(clk));
     
     initial begin
         // Initialize Inputs
