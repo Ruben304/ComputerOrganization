@@ -19,7 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module Nbit_Sub_tb(
 
     );
@@ -34,13 +33,7 @@ module Nbit_Sub_tb(
     wire c_out; 
     
     
-    Nbit_Sub #(.N(N)) subTest(
-    .c_out(c_out),
-    .sum(sum), 
-    .a(in1),
-    .b(in2),
-    .c_in(c_in)
- ); 
+    Nbit_Sub #(.N(N)) subTest(.c_out(c_out),.sum(sum), .a(in1), .b(in2), .c_in(c_in)); 
  
     initial begin 
         
