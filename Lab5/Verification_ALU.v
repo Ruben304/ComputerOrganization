@@ -20,43 +20,44 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Verification_ALU#(parameter N = 32)(in1_val, in2_val, select, out_val, clk, c_out);
+module Verification_ALU#(parameter N = 32)(R2, R3, select, R1, clk, c_out);
     input clk;
-	input signed [N-1:0] in1_val;
-	input signed [N-1:0] in2_val;
+	input signed [N-1:0] R2;
+	input signed [N-1:0] R3;
 	input [2:0] select;
 	output reg c_out;
-	output reg [N-1:0] out_val;
+	output reg [N-1:0] R1;
 	
 	always @(*) begin
 		case(select)
 			3'b000: begin
-			 out_val = in1_val; 
+			 R1 = R2; 
 			 c_out = 0;
 			 end
 			3'b001: begin 
-			 out_val = ~in1_val;
+			 R1 = ~R2;
 			 c_out = 0;
 			 end
 			3'b010: begin
-			 {c_out, out_val} = in1_val + in2_val;
+			 {c_out, R1} = (R2 + R3) + 1'd1;
 			 end
 			3'b011: begin
-			 out_val = ~(in1_val | in2_val);
+			 R1 = ~(R2 | R3);
+			 c_out = 0;
 			 end
 			3'b100: begin
-			 {c_out, out_val} = in1_val - in2_val;
+			 {c_out, R1} = (R2 - R3) - 1'd1;
 			 end
 			3'b101: begin
-			 out_val = ~(in1_val & in2_val);
+			 R1 = ~(R2 & R3);
 			 c_out = 0;
 			 end
 			3'b110: begin
-			 out_val = in1_val & in2_val;
+			 R1 = R2 & R3;
 			 c_out = 0;
 			 end
 			3'b111: begin 
-			 out_val = (in1_val < in2_val) ? 1 : 0;
+			 R1 = (R2 < R3) ? 1 : 0;
 			 c_out = 0;
 			 end
 		endcase
