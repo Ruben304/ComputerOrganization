@@ -26,34 +26,35 @@ module ALU_tb;
     reg [n-1:0] R3;
     reg [2:0] ALUOp;
     reg clk;
+    reg c_in  = 1;
 
 //Outputs
-    wire [n-1:0] R0;
-    wire error_flag;
+    wire [n-1:0] R1;
+    //wire error_flag;
     wire [n-1:0] out_verify;
     wire c_out;
 
 //Instantiate unit under test
-	ALU #(.N(n))     ALU(.out1_val(R0[n-1:0]), 
-		     .in1_val(R2[n-1:0]), 
-		     .in2_val(R3[n-1:0]), 
-		     .mux_in(ALUOp[2:0]), 
+	ALU #(.N(n))     ALU(.R1(R1[n-1:0]), 
+		     .R2(R2[n-1:0]), 
+		     .R3(R3[n-1:0]), 
+		     .ALUOp(ALUOp[2:0]), 
 		     .c_in(c_in), 
-		     .c_out(c_out), 
+		     .c_out_output(c_out), 
 		     .clk(clk));
 
-//Assign error_flag
-    assign error_flag = (c_out != c_out_verify || (R0 != out_verify);
 
 //Verification Logic
-   // Verification_ALU #(n) Verify(
-    //.c_out(c_out_verify), 
-    //.out(out_verify), 
-    //.a(R2), 
-    //.b(R3), 
-    //.select(ALUOp), 
-    //.clk(clk));
+    Verification_ALU #(n) Verify(
+    .c_out(c_out_verify), 
+    .R1(out_verify), 
+    .R2(R2), 
+    .R3(R3), 
+    .select(ALUOp));
     
+//Assign error_flag
+    assign error_flag = (R1 != out_verify || c_out_verify != c_out);   
+     // if needed to compare carries:  || c_out_verify != c_out
     initial begin
         // Initialize Inputs
 	R2 = 0;
