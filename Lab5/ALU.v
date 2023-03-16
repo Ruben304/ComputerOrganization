@@ -19,15 +19,14 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, clk);
-	input [N-1:0] in1_val, in2_val;
-	input [2:0] mux_in;
+module ALU #(parameter N = 32)(R2, R3, ALUOp, c_in, c_out_output, clk, R1);
+	input [N-1:0] R2, R3;
+	input [2:0] ALUOp;
 	input c_in, clk;
-	output [N-1:0] out1_val;
-	output c_out;
+	output c_out_output;
+	output reg [N-1:0] R1;
 	
-	reg [N-1:0] out;
-
+    
 	wire [N-1:0] mov_out;
 	wire [N-1:0] not_out;
 	wire [N-1:0] add_out;
@@ -37,58 +36,66 @@ module ALU #(parameter N = 32)(in1_val, in2_val, mux_in, c_in, out1_val, c_out, 
 	wire [N-1:0] and_out;
 	wire [N-1:0] slt_out;
 
-	wire [N-1:0] output1;
 	wire c_out_add, c_out_sub, c_out_slt;
 	reg c_out_output;
 	
-	
-		Nbit_NOT #(.N(N)) notALU (.out(not_out[N-1:0]), .in(in1_val[N-1:0]));
+	    assign mov_out[N-1:0] = R2 [N-1:0];
+	   
+		Nbit_NOT #(.N(N)) notALU (.out(not_out[N-1:0]), .in(R2[N-1:0]));
 		
-		Nbit_adder #(.N(N)) adderALU (.c_out(c_out_add), .sum(add_out[N-1:0]), .a(in1_val[N-1:0]), .b(in2_val[N-1:0]), .c_in(c_in));
+		Nbit_adder #(.N(N)) adderALU (.c_out(c_out_add), .sum(add_out[N-1:0]), .a(R2[N-1:0]), .b(R3[N-1:0]), .c_in(c_in));
 		
-		NBit_NOR #(.N(N)) norALU (.out_val(nor_out[N-1:0]), .in1_val(in1_val[N-1:0]), .in2_val(in2_val[N-1:0]));
+		NBit_NOR #(.N(N)) norALU (.out_val(nor_out[N-1:0]), .in1_val(R2[N-1:0]), .in2_val(R3[N-1:0]));
 		
-		Nbit_Sub #(.N(N)) subALU (.c_out(c_out_sub), .sum(sub_out[N-1:0]), .a(in1_val[N-1:0]), .b(in2_val[N-1:0]), .c_in(c_in));
+		Nbit_Sub #(.N(N)) subALU (.c_out(c_out_sub), .sum(sub_out[N-1:0]), .a(R2[N-1:0]), .b(R3[N-1:0]), .c_in(0));
 		
-		Nbit_NAND #(.N(N)) nandALU (.out_val(nand_out[N-1:0]), .in1_val(in1_val[N-1:0]), .in2_val(in2_val[N-1:0]));
+		Nbit_NAND #(.N(N)) nandALU (.out_val(nand_out[N-1:0]), .in1_val(R2[N-1:0]), .in2_val(R3[N-1:0]));
 		
-		Nbit_AND #(.N(N)) andALU (.out_val(and_out[N-1:0]), .in1_val(in1_val[N-1:0]), .in2_val(in2_val[N-1:0]));
+		Nbit_AND #(.N(N)) andALU (.out_val(and_out[N-1:0]), .in1_val(R2[N-1:0]), .in2_val(R3[N-1:0]));
 		
-		Nbit_SLT #(.N(N)) sltALU (.c_out(c_out_slt), .a(in1_val[N-1:0]), .b(in2_val[N-1:0]));
+		Nbit_SLT #(.N(N)) sltALU (.c_out(c_out_slt), .a(R2[N-1:0]), .b(R3[N-1:0]));
 		
 		always @(*) begin
-			case(mux_in)
+			case(ALUOp)
 				3'b000: // mov
-			         out[N-1:0] = mov_out[N-1:0];
+			         begin
+			             R1[N-1:0] = mov_out[N-1:0];
+			             c_out_output = 0;
+			         end
 				3'b001:	// not
-				    out[N-1:0] = not_out[N-1:0];
+				    begin
+				        R1[N-1:0] = not_out[N-1:0];
+				        c_out_output = 0;
+			         end
 				3'b010: // add
 				    begin
-				        out[N-1:0] = add_out[N-1:0];
+				        R1[N-1:0] = add_out[N-1:0];
 				        c_out_output = c_out_add;
 				    end    
 				3'b011: // nor
-				    out[N-1:0] = nor_out[N-1:0];
+				    begin
+				        R1[N-1:0] = nor_out[N-1:0];
+				        c_out_output = 0;
+			        end
 				3'b100: // sub
 				    begin
-				        out[N-1:0] = sub_out[N-1:0];
+				        R1[N-1:0] = sub_out[N-1:0];
 				        c_out_output = c_out_sub;
 				    end
 				3'b101: // nand
-				    out[N-1:0] = nand_out[N-1:0]; 
+				    begin
+				        R1[N-1:0] = nand_out[N-1:0]; 
+				        c_out_output = 0;
+			         end
 				3'b110: // and
-				    out[N-1:0] = and_out[N-1:0];
+				    begin
+				        R1[N-1:0] = and_out[N-1:0];
+				        c_out_output = 0;
+			         end
 				3'b111: // slt
 				    c_out_output = c_out_slt;
 		    endcase
         end		
-
-    assign c_out = c_out_output;
-    assign out1_val = out;
-
-    NBit_Register #(.N(N)) regALU (.out0(out1_val[N-1:0]), .in0(output1[N-1:0]), .clk(clk));
-
-    dff dffALU (.q(c_out), .d(c_out), .clk(clk));
 
 
 endmodule
