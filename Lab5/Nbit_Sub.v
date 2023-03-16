@@ -28,12 +28,12 @@ module Nbit_Sub #(parameter N = 32)(a, b, c_in, sum, c_out);
     output [N-1:0] sum;
     genvar i;
     
-    
     wire [N-1:0] inv_b;
     wire [N:0] carry;
+    wire xor_signal;
     
     assign carry[0] = c_in;
-    assign c_out = carry[N];
+    assign xor_signal = 1'b1;
     
     Nbit_NOT #(.N(N)) not1(.out(inv_b), .in(b));
     generate 
@@ -42,4 +42,5 @@ module Nbit_Sub #(parameter N = 32)(a, b, c_in, sum, c_out);
          end 
     endgenerate
     
+    assign c_out = carry[N] ^ xor_signal;
 endmodule
