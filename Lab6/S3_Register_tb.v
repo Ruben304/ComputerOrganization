@@ -70,10 +70,7 @@ module S3_Register_tb();
         
 		S2_WriteSelect = 4'b1100;
         	S2_WriteEnable = 1'b0;
-		
-		#10
-	
+
 	end
 	
-
 endmodule
