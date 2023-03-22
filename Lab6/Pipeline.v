@@ -87,8 +87,8 @@ module Pipeline(
 		.S1_datasrc(S1_S2_DataSrc),
 		.S2_ReadData1(R2),
 		.S2_ReadData2(S2_ReadData2_mux),
-		.S2_WriteSelect(S2_S3_Reg_WriteSelect),
-		.S2_WriteEnable(S2_S3_Reg_WriteEnable),
+		.S2_WriteSelect(S2_S3_WriteSelect),
+		.S2_WriteEnable(S2_S3_WriteEnable),
 		.S2_IMM(S2_IMM_mux),
 		.S2_DataSrc(S2_DataSrc_mux),
 		.S2_ALUOp(S2_ALUOp_select)
