@@ -51,7 +51,7 @@ module S3_Register_tb();
 		R1 = 32'b0;
         
 		S2_WriteSelect = 4'b0;
-        S2_WriteEnable = 1'b0;
+        	S2_WriteEnable = 1'b0;
 		
 		#10
 		
@@ -62,14 +62,14 @@ module S3_Register_tb();
 		R1 = 32'b00000000110000001110000000000100;
         
 		S2_WriteSelect = 4'b0011;
-        S2_WriteEnable = 1'b1;
+        	S2_WriteEnable = 1'b1;
 		
 		#10
 		
 		R1 = 32'b000110101101000010000110100000100;
         
 		S2_WriteSelect = 4'b1100;
-        S2_WriteEnable = 1'b0;
+        	S2_WriteEnable = 1'b0;
 		
 		#10
 	
