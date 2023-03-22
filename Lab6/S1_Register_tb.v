@@ -62,10 +62,7 @@ module S1_Register_tb();
 		#10
 		
 		InstrIn = 32'b010101_00011_00001_00010_00000000000; // R type, ADD r1(0000000A) with r2(00000002) => r3 = 0000000C
-		
-		#10
-	
+
 	end
 	
-
 endmodule
