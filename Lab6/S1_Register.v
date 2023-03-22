@@ -25,7 +25,10 @@ module S1_Register(
 	output reg [4:0] S1_ReadSelect1,
 	output reg [4:0] S1_ReadSelect2,
 	output reg [4:0] S1_WriteSelect,
-	output reg S1_WriteEnable
+	output reg S1_WriteEnable,
+	output reg [15:0] S1_IMM,
+	output reg S1_DataSrc,
+	output reg [2:0] S1_ALUOp
    );
 
 	always@(posedge clk)
@@ -36,6 +39,9 @@ module S1_Register(
 			S1_ReadSelect2 <= 5'd0;
 			S1_WriteSelect <= 5'd0;
 			S1_WriteEnable <= 1'b0;
+			S1_IMM <= 16'b0;
+			S1_DataSrc <= 1'b0;
+			S1_ALUOp <= 3'b0;
 			end
 		else
 			begin
@@ -43,6 +49,9 @@ module S1_Register(
 			S1_ReadSelect2 <= InstrIn[15:11];
 			S1_WriteSelect <= InstrIn[25:21];
 			S1_WriteEnable <= 1'b1;
+			S1_IMM <= InstrIn[15:0];
+			S1_DataSrc <= InstrIn[29];
+			S1_ALUOp <= InstrIn[28:26];
 			end
 		end
 
