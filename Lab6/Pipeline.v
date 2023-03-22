@@ -92,7 +92,8 @@ module Pipeline(
 		.S2_DataSrc(S2_DataSrc_mux),
 		.S2_ALUOp(S2_ALUOp_select)
    );
-
+	assign R3 = (S2_DataSrc_mux)? S2_IMM_mux : S2_ReadData2_mux;
+	
 	ALU ALU(
 	   .clk(clk),
 	   .R2(R2),
