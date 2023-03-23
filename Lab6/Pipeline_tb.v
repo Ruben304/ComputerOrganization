@@ -50,30 +50,16 @@ module Pipeline_tb;
 		InstrIn = 0;
 
 		// Wait 10 ns for global reset to finish
-		#10;
-		rst = 0;
 		
-		#10
-		InstrIn = 32'b000000_00010_00001_00010_00000000000;				// Read out R1 and R2, write result to R2
+		 #10
+	    	InstrIn = 32'b011001_00010_00010_0000000000000000;  // I type, NOT R2
+	    
+	   	 #10
+	    	InstrIn = 32'b011000_00011_00001_0000000000000000;  // I type, MOV r1(10) to r3(30) r3 => 10
 		
-		#10;
-		InstrIn = 32'b000000_00100_00011_00100_00000000000;				// Read out R3 and R4, write result to R4
 		
-		#10;
-		InstrIn = 32'b000000_00110_00101_00110_00000000000;				// Read out R5 and R6, write result to R6
-        
-		#10;
-		InstrIn = 32'b000000_00000_00000_00000_00000000000;				// Do nothing
 		
-		#10; 
-		InstrIn = 32'b011101_00001_00001_0000000000001010; // I type, ADD r1 with 0000000A => r1 = 0000000A 
-		#10;
-		InstrIn = 32'b011011_00010_00010_0000000000000010; // I type, OR r2 with 00000002 => r2 = 00000002 
-		#10;
-		InstrIn= 32'b010101_00011_00001_00010_00000000000; // R type, ADD r1(0000000A) with r2(00000002) => r3 = 0000000C 
-		#10;
-		InstrIn= 32'b010110_00100_00001_00010_00000000000; // R type, SUB r1(0000000A) with r2(00000002) => r4 = 00000008
-
+		
 	end
       
 endmodule
