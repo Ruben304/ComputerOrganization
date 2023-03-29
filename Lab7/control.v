@@ -2,7 +2,8 @@
 
 module control(
 		input [5:0] instruction,
-		output reg [2:0] ALUOp,
+		input [5:0] func,
+		output reg [1:0] ALUOp,
 		output reg MemRead,
 		output reg MemtoReg,
 		output reg RegDst,
@@ -17,7 +18,7 @@ module control(
 
 
 always @(*) begin
-		if (instruction == 6'b00_0000) begin				//RType might need edits 
+		if ((instruction == 6'b00_0000) && (func != 6'b00_1000)) begin				//RType might need edits 
 		ALUOp = 3'b000;
 		MemRead = 1'b0;
 		MemtoReg = 1'b0;
@@ -141,3 +142,4 @@ always @(*) begin
 	
 end
 endmodule
+
