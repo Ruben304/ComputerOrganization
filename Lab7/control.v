@@ -3,7 +3,7 @@
 module control(
 		input [5:0] instruction,
 		input [5:0] func,
-		output reg [1:0] ALUOp,
+	output reg [2:0] ALUOp,
 		output reg MemRead,
 		output reg MemtoReg,
 		output reg RegDst,
