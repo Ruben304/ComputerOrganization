@@ -7,7 +7,7 @@ module ALU_control(
     );
 
  always @(*) begin
-	if (ALUOp == 2'b00) begin  
+	 if (ALUOp == 3'b000) begin  
 		if (instruction == 6'h20) //ADD
 		func = 3'd0;
 		else if (instruction == 6'h22) //SUB
