@@ -141,7 +141,7 @@ reg_32bit			IFID_InstructionReg(IDEX_Instruction, InstructionOut, IFID_Enable, I
 
 //////////////////  ID Stage	///////////////////////////
 
-hazardunit 	  HazardDetectionUnit(IFID_Enable,PCWrite,HazardMuxSelect, RegDestMuxOut, IDEX_Instruction[25:21], IDEX_Instruction[20:16], MeMDest, IDEX_WBControl[0], MEM_RegWrite);
+hazardunit 	  HazardDetectionUnit(IFID_Enable,PCWrite,HazardMuxSelect, RegDestMuxOut, IDEX_Instruction[25:21], IDEX_Instruction[20:16], MemDest, IDEX_WBControl[0], MEM_RegWrite);
 
 pipecontrol 	  Control(OpCode, Equal, RegDst, AluOp, AluSrc, PCSelect, MemRead, MemWrite,
 	  			     ZeroMuxSelect, RegWrite, MemToReg, IF_Flush);
