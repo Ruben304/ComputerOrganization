@@ -1,5 +1,6 @@
 module hazardunit(IFIDWrite,PCWrite,HazardMux, IDEX_Rs, IDEX_Rt, IDEX_Rd, EXMEM_Rd, inWex, inWmem, ALUOp);
     input [4:0] IDEX_Rs, IDEX_Rt, IDEX_Rd, EXMEM_Rd;
+	input [1:0] ALUOp;
     input inWex, inWmem;
 	output reg IFIDWrite, PCWrite, HazardMux;
 	
