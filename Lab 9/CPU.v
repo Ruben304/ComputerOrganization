@@ -186,9 +186,9 @@ reg_5bitne  IDEX_RdReg(IDEX_Rd, HazardMuxSelect?0:IDEX_Instruction[15:11], Reset
 
 /////////////////   EX Stage ///////////////////////////////////////
 
-mux2to1 ImmAluBMux(Alu_b, AluIB, IDEX_Immediate, EX_AluSrc);
+mux2to1 ImmAluBMux(ALU_b, AluIB, IDEX_Immediate, EX_AluSrc);
 
-alu MarkAlu(ALU_a, Alu_b, EX_AluCntrlOut[3:0], EX_AluCntrlOut[8:4],  AluResult, Hi, Lo);
+alu MarkAlu(ALU_a, ALU_b, EX_AluCntrlOut[3:0], EX_AluCntrlOut[8:4],  AluResult, Hi, Lo);
 reg_32bit HiReg(HiRegOut, Hi, EX_HiLoEnable, Reset, clk);
 reg_32bit LoReg(LoRegOut, Lo, EX_HiLoEnable, Reset, clk);
 mux3to1_32bit AluResultMux(AluMuxResult, AluResult, HiRegOut, LoRegOut,  EX_AluMuxSelect);
@@ -209,7 +209,7 @@ reg_32bitne EXMEM_ALUReg(MemAluOut, AluMuxResult, Reset, clk);
 
 reg_5bitne  EXMEM_RegDest(MemDest, RegDestMuxOut, Reset, clk);
 
-reg_32bitne EXMEM_MemData(MEM_Data, ALUIB, Reset, clk);
+reg_32bitne EXMEM_MemData(MEM_Data, AluIB, Reset, clk);
 
 
 
