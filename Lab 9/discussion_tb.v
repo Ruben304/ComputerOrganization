@@ -69,16 +69,14 @@ module discussion_tb;
 		#10;
 		Instruction = 32'b100011_00000_00100_00000_00000_000100;   // LW $R4, 4(R0)                                                               
 		#10;
-		Instruction = 32'b000000_00100_00110_00111_00000_100010;   // sub  $R7, $R4, $R6 (R4/4 - R6/1 = 3/R7)  
+		Instruction = 32'b000000_00100_00110_00111_00000_100010;   // sub  $R7, $R4, $R6 (R4/4 - R6/1 = 3/R7)  1 ahead
 		#10;
-		Instruction = 32'b101011_00000_00111_00000_00000_000010;	// SW R7, 2(R0) (3 to 2) changes write value right away and saves it to there: 1 ahead Hazard  
+		Instruction = 32'b101011_00000_01001_00000_00000_000010;	// SW R9, 2(R0) (3 to 2) changes write value right away and saves it to there: 1 ahead Hazard  
 		#10;
 		Instruction = 32'b000000_00111_00010_01000_00000_100000;	// add R8, R7, R2 (92 + 3 = 95) 2 ahead hazard of using new value of R7 of 3 instead 9
 		#10;
-		Instruction = 32'b000011_00110_00100_11111_11111_11_1111;   // BNE R6, R8, 5 (R6/1 and R8/95 are different so bring to begining)
-		#10;
-		Instruction = 32'b001000_00000_01101_0000000000010101; //addi $R13, 21
-		#10;
+		Instruction = 32'b000000_00100_00110_01000_00000_100010;   // sub  $R8, $R4, $R6 (R4/4 - R6/1 = 3/R8
+		#10
 
 		LoadInstructions = 0;
       	Reset = 1;
