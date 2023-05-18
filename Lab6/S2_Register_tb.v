@@ -40,7 +40,7 @@ module S2_Register_tb();
 		.Reg_ReadData2(Reg_ReadData2),
 		.S1_WriteSelect(S1_WriteSelect),
 		.S1_WriteEnable(S1_WriteEnable),
-		.S1_IMM(S1_IMM),
+		.S1_IMM(S1_IMM),,
 		.S1_DataSrc(S1_DataSrc),
 		.S1_ALUOp(S1_ALUOp),
 		.S2_ReadData1(S2_ReadData1),
@@ -94,6 +94,8 @@ module S2_Register_tb();
 		S1_WriteEnable = 5'b01001;
 		S1_ALUOp = 3'b100;
 		S1_DataSrc = 1'b0;
+		
+		#10
 	
 	end
 	

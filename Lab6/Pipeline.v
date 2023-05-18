@@ -40,8 +40,7 @@ module Pipeline(
 	wire S2_Reg_WriteEnable;
 	wire [15:0] S2_IMM_mux;
 	wire S2_DataSrc_mux;
-	wire [31:0] S2_ReadData2_mux;
-	wire [2:0] S2_ALUOp_select;
+	wire S2_ALUOp_select;
 	wire [4:0] S2_S3_WriteSelect;
 	wire S2_S3_WriteEnable;
 	wire [4:0] S3_Reg_WriteSelect;
@@ -60,7 +59,7 @@ module Pipeline(
 		.S1_IMM(S1_S2_IMM),
 		.S1_DataSrc(S1_S2_DataSrc),
 		.S1_ALUOp(S1_S2_ALUOp)
-    );
+   );
 
 
 	nbit_register_file Register_File (
@@ -69,8 +68,8 @@ module Pipeline(
 		.read_data_2(Reg_S2_ReadData2),
 		.read_sel_1(S1_Reg_ReadSelect1),
 		.read_sel_2(S1_Reg_ReadSelect2),
-		.write_address(S3_Reg_WriteSelect),
-		.RegWrite(S3_Reg_WriteEnable),
+		.write_address(S2_Reg_WriteSelect),
+		.RegWrite(S2_Reg_WriteEnable),
 		.clk(clk)
 	);
 		
@@ -86,16 +85,15 @@ module Pipeline(
 		.S1_imm(S1_S2_IMM),
 		.S1_datasrc(S1_S2_DataSrc),
 		.S2_ReadData1(R2),
-		.S2_ReadData2(S2_ReadData2_mux),
-		.S2_WriteSelect(S2_S3_WriteSelect),
-		.S2_WriteEnable(S2_S3_WriteEnable),
+		.S2_ReadData2(R3),
+		.S2_WriteSelect(S2_Reg_WriteSelect),
+		.S2_WriteEnable(S2_Reg_WriteEnable),
 		.S2_IMM(S2_IMM_mux),
 		.S2_DataSrc(S2_DataSrc_mux),
 		.S2_ALUOp(S2_ALUOp_select)
-    );
-    
-    assign R3 = (S2_DataSrc_mux)? S2_IMM_mux : S2_ReadData2_mux;
-    
+   );
+	assign R3 = (S2_DataSrc_mux)? S2_IMM_mux : S2_ReadData2_mux;
+	
 	ALU ALU(
 	   .clk(clk),
 	   .R2(R2),
@@ -103,7 +101,7 @@ module Pipeline(
 	   .c_in(1'b0),
 	   .ALUOp(S2_ALUOp_select),
 	   .R1(R1),
-	   .c_out_output(c_out)
+	   .c_out(c_out_output)
 	);
 	
 	S3_Register S3_Reg(
