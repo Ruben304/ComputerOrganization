@@ -2,36 +2,28 @@
 
 module ALU_control(
 	 input [5:0] instruction,
-	 input [2:0] ALUOp,
+	 input [1:0] ALUOp,
 	 output reg [2:0] func
     );
 
  always @(*) begin
-	 if (ALUOp == 3'b000) begin  
-		if (instruction == 6'h20) //ADD
+	if (ALUOp == 2'b00) begin  
+		if (instruction == 6'h20) 
 		func = 3'd0;
-		else if (instruction == 6'h22) //SUB
+		else if (instruction == 6'h22)
 		func = 3'd1;
-		else if (instruction == 6'h24) //AND
+		else if (instruction == 6'h24)
 		func = 3'd2;
-		else if (instruction == 6'h25) //OR
+		else if (instruction == 6'h25)
 		func = 3'd3;
-		else if (instruction == 6'h26) //XOR
-		func = 3'd5;
-		else if (instruction == 6'h27) //NOR
+		else if (instruction == 6'h27)
 		func = 3'd4;
-		else if (instruction == 6'h2A) //SLT
-		func = 3'd6;
-		else      
+		else
 		func = 3'd7;
-	end else if (ALUOp == 3'b001) begin // Branch and BNE use the sub alu function
+	end else if (ALUOp == 2'b01) begin
 		func = 3'd1;
-	end else if (ALUOp == 3'b010) begin // LW & SW & LUI uses add alu function 
+	end else if (ALUOp == 2'b10) begin
 		func = 3'd0;
-	end else if (ALUOp == 3'b011) begin // ADDI uses add alu function
-	   func = 3'd0;
-	end else if (ALUOp == 3'b100) begin // ANDI uses the and alu function 
-	   func = 3'd2;
 	end else begin
 		func = 3'd7;
 	end

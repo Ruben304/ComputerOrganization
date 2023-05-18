@@ -44,42 +44,9 @@ module tb_cpu;
 		instruction_initialize_address = 16;
 		instruction_initialize_data = 32'b100011_00000_01100_00000_00000_00_1100;      // LW R12, 12(R0)
 		#20	
-        instruction_initialize_address = 20;
+      instruction_initialize_address = 20;
 		instruction_initialize_data = 32'b000100_00000_00000_11111_11111_11_1111;      // BEQ R0, R0, -1
 		#20;
-		
-		
-		instruction_initialize_address = 24;
-		instruction_initialize_data = 32'b000000_00101_00110_01110_00000_10_0100;      // AND R14, R5, R6
-		#20 
-		instruction_initialize_address = 28;
-		instruction_initialize_data = 32'b000000_10011_10010_10100_00000_10_0111;     // NOR R10, R10, R11
-		#20
-		instruction_initialize_address = 32;
-		instruction_initialize_data = 32'b000000_00001_00010_00110_00000_10_0111;     // XOR R6, R1, R0
-		#20
-		instruction_initialize_address = 36;
-		instruction_initialize_data = 32'b000000_00010_00011_00001_00000_10_1010;     // SLT R1, R2, R3
-		
-		
-        #20
-        instruction_initialize_address = 40;
-		instruction_initialize_data = 32'b00_1000_00001_00000_0000000000000001;      // ADDI R0, R1, 1
-		#20
-		instruction_initialize_address = 44;
-		instruction_initialize_data = 32'b00_1100_00001_00000_0000000000000001;      // ANDI R0, R1, 1
-		#20
-		instruction_initialize_address = 48;
-		instruction_initialize_data = 32'b00_1111_00001_00001_0000000000000001;      // LUI R0, 1
-		
-		
-		#20 
-		instruction_initialize_address = 52;
-		instruction_initialize_data = 32'b00_0011_00000_00001_0000000000000000;      // BNE R0, R1, 0
-		#20
-		instruction_initialize_address = 56;
-		instruction_initialize_data = 32'b00_0010_00000_00000_0000000000000100;      // J 4
-		
 		
 		initialize = 0;
 		rst = 0;
