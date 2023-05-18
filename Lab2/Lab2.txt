@@ -1,0 +1,104 @@
+Ruben Carbajal 
+EC 413 Lab 2
+
+Part 3: the output is;
+
+The sorted array is
+  1234
+
+
+Part 5: 
+
+For the question "where does SPIM put it" is a refrence to address of "numbs": 10010000
+
+The vairable "count": 1001002c
+
+The variable "msg": 10010010
+
+Part 6:
+(How to know numbs is 5,7,4,3)
+numbs is first intiliazed to 5, 7, 4, 3 then it changes.
+
+Since numb's value is stored in t0, t0 is first set to 4 at the start start of the loop and stores it in the same address numbs is originally at.
+Then at the end of the first loop it deincrements the value of t0 to 3 and add 4 to index into the nex address of array numbs until finally jumping back. 
+After running the first loop, it now stores the value of t0 (3) to the new address 10010004, then it continues the same pattern. It deincrements t0 to 2 
+and indexes to the next element in the numbs array by adding 4 and becoming 10010008, until jumping back to the top of the loop the seond time. 
+Now at the top of the loop for the third time we save t0 (2) to the new address. We then deincreament t0 again to 1 and index to the next element of the
+array with address 1001000c. We jump back to the start of the loop for the fourth time save the t0 value (1) to the new address. After that we deincreament 
+t0 to 0 and add 4 to the next address of 10010010, then jump back to the start. Although, once at the top of the loop it jumps before saving and values
+because of the condition of t0 equaling 0 to skip the loop. numbs ends as 4, 3, 2, 1
+
+
+Part 8:
+
+The breakpoint is at line 42 and these were the values of numbs after each halt
+4,3,2,1 
+3,4,2,1
+3,2,4,1
+3,2,4,1
+3,2,4,1
+2,3,1,4
+2,1,3,4
+2,1,3,4
+2,1,3,4
+1,2,3,4
+1,2,3,4
+1,2,3,4
+1,2,3,4
+1,2,3,4
+1,2,3,4
+
+
+Part 10:
+
+This is the values in numbs when I set a break point at line 45 and change $t4 = 0 and second element in array to 7
+4,7,2,1
+7,2,1
+2,7,1
+2,1,7
+1,2,7
+
+Part 12:
+
+in order to change the array to 8 numbers i first change numbs:
+numbs:	.word	5, 7, 4, 3, 8, 1, 2, 0		  # Allocate four words and init to 5,7,4,3
+
+then i change count:
+count:  .word   8		          # number of elements in the array
+
+the output printed is:
+the sorted array is 1,2,3,4,5,6,7,8
+
+we get to the sorted array by making a break point at line 42.
+numbs started: 5,7,4,3,8,1,2,0
+8,7,6,5,4,3,2,1
+7,8,6,5,4,3,2,1
+7,6,8,5,4,3,2,1
+7,6,5,8,4,3,2,1
+7,6,5,4,8,3,2,1
+7,6,5,4,3,8,2,1
+7,6,5,4,3,2,8,1
+7,6,5,4,3,2,1,8
+7,6,5,4,3,2,1,8
+6,7,5,4,3,2,1,8
+6,5,7,4,3,2,1,8
+6,5,4,7,3,2,1,8
+6,5,4,3,7,2,1,8
+6,5,4,3,2,7,1,8
+6,5,4,3,2,1,7,8
+6,5,4,3,2,1,7,8
+5,6,4,3,2,1,7,8
+5,4,6,3,2,1,7,8
+5,4,3,6,2,1,7,8
+5,4,3,2,6,1,7,8
+5,4,3,2,1,6,7,8
+4,5,3,2,1,6,7,8
+4,3,5,2,1,6,7,8
+4,3,2,5,1,6,7,8
+4,3,2,1,5,6,7,8
+3,4,2,1,5,6,7,8
+3,2,4,1,5,6,7,8
+3,2,1,4,5,6,7,8
+2,3,1,4,5,6,7,8
+2,1,3,4,5,6,7,8
+1,2,3,4,5,6,7,8 : final
